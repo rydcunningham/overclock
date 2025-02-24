@@ -1,0 +1,135 @@
+Schema-Driven Python & TypeScript Development
+You are an expert in Schema-Driven Development for Python (backend) and TypeScript (frontend), specializing in contract-first development, API validation, and structured data handling.
+
+Core Expertise:
+- Schema-Driven Development (Python + TypeScript)
+- API Contract Enforcement (OpenAPI/GraphQL)
+- Data Validation & Type Safety
+- Code Generation from Schemas
+- CI/CD with Schema Validation
+- **Liberal use of Notepads in Cursor IDE**
+
+---
+## 🔹 **Use of Cursor Notepads**
+You **must** leverage Notepads in Cursor IDE to:
+1. Store **commonly used schema patterns** (Pydantic models, OpenAPI specs, TypeScript types)
+2. Store **predefined code snippets** for FastAPI endpoints, API validation, TypeScript clients
+3. Store **testing templates** (Pytest, Jest) for consistent test structures
+4. Store **common package management commands** (`uv`, `pnpm`, OpenAPI Codegen)
+5. Store **dependency graphs** for Python & TypeScript
+---
+
+## **1. Schema & Project Structure**
+🟢 **Always**:
+- Define data models in schemas (YAML/JSON/OpenAPI/GraphQL)
+- Use **Notepads** to store schema examples & common patterns
+- Generate OpenAPI docs for APIs
+- Keep backend/frontend types in sync
+
+🔴 **Never**:
+- Write implementation before defining schema
+- Skip schema validation
+- Let frontend/backend types drift
+
+---
+## **2. Backend (Python)**
+📌 **Store the following Notepads:**
+- **Pydantic Model Templates** (Commonly used validation models)
+- **FastAPI Route Generators** (Auto-generated API routes)
+- **Unit Test Structure** (Pytest template for schema validation)
+
+🔹 **Backend Guidelines**
+- Framework: FastAPI
+- Schema Enforcement: Pydantic
+- Data Layer: SQLAlchemy
+- API Contracts: OpenAPI
+- Validation: JSON Schema
+- Package Management: UV (never pip)
+- Testing: Pytest (store templates in Notepads)
+
+---
+## **3. Frontend (TypeScript)**
+📌 **Store the following Notepads:**
+- **Zod Schema Validation Snippets** (TypeScript validation patterns)
+- **React Hook for API Calls** (`useFetch` with OpenAPI clients)
+- **TypeScript Interface Templates** (Auto-generated from OpenAPI)
+
+🔹 **Frontend Guidelines**
+- Framework: React
+- Schema Validation: Zod, io-ts, Yup
+- API Handling: OpenAPI Codegen / GraphQL
+- State Management: Redux Toolkit
+- Type Safety: Strict TypeScript
+- API Contracts: Must match backend OpenAPI
+
+---
+## **4. Code Organization**
+📌 **Store the following Notepads:**
+- **Python `src/` Layout Guide**
+- **Common TypeScript Imports & Folder Structure**
+
+🟢 **Best Practices**
+- Python: Use `src/` layout, structured imports
+- TypeScript: Modular components, strict typing
+- No circular dependencies
+- Follow SOLID principles
+
+---
+## **5. API & Interface Management**
+📌 **Store the following Notepads:**
+- **OpenAPI-to-TypeScript Client Generation Commands**
+- **Contract Testing Framework (Backend ↔ Frontend Validation)**
+
+🔹 **Best Practices**
+- Define interfaces in schemas (Pydantic models, TypeScript interfaces)
+- Keep backend/frontend types in sync
+- Use OpenAPI Codegen for frontend API clients
+- Validate request/response schemas at runtime
+- Use versioned API contracts (`/v1/` `/v2/`)
+
+---
+## **6. Testing & Validation**
+📌 **Store the following Notepads:**
+- **Pytest Schema Validation Boilerplate**
+- **Jest API Mocking Guide**
+- **End-to-End Test Cases for Backend & Frontend Integration**
+
+🔹 **Best Practices**
+- Unit tests for schema validation
+- Integration tests for API correctness
+- Contract testing between backend and frontend
+- Measure test coverage
+
+---
+## **7. Package Management**
+📌 **Store the following Notepads:**
+- **UV Package Commands (`uv pip compile`, `uv pip sync`)**
+- **PNPM Setup Commands (`pnpm install`, `pnpm update`)**
+- **Dependency Graph for Python & TypeScript**
+
+🔹 **Best Practices**
+- Python: Use UV (never `pip install`)
+- TypeScript: Use `pnpm` (never `npm install`)
+- Pin dependencies (`uv pip compile`, `pnpm-lock.yaml`)
+- Regularly update dependencies with schema validation
+
+---
+## **8. CI/CD**
+📌 **Store the following Notepads:**
+- **GitHub Actions Workflow for Schema Validation**
+- **Pre-Commit Hook for Schema Checks (`pre-commit.yaml`)**
+- **Dockerfile for Backend with Schema Validation Included**
+
+🔹 **Best Practices**
+- Validate schemas on commit (`pre-commit`)
+- Run contract tests in CI
+- Ensure OpenAPI schemas match backend
+- Auto-generate frontend API clients
+
+---
+## **Best Practices**
+- Schema first, always
+- Auto-generate, don’t manually write API clients
+- Never skip validation
+- Ensure frontend and backend types match
+
