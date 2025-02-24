@@ -1,0 +1,12 @@
+B200:
+  memory: 192GB HBM3e
+  memory_bandwidth: 8TB/s
+  power_usage: 1200W
+  compute_performance:
+    FP64: 18 PFLOPS
+    FP32: 36 PFLOPS
+    TF32: 2.5 PFLOPS
+    BF16_FP16: 4.5 PFLOPS
+    FP8: 9 PFLOPS
+  interconnect_bandwidth: 1.8TB/s NVLink
+

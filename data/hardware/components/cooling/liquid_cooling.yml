@@ -1,0 +1,6 @@
+Liquid_Cooling:
+  type: "Direct-to-chip"
+  coolant: "Water"
+  flow_rate: "4 L/min"
+  temperature_range: "20-30°C"
+

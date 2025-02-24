@@ -1,0 +1,16 @@
+GB200_NVL72:
+  compute_nodes:
+    - DGX_B200
+  total_gpus: 72
+  total_cpus: 36
+  total_memory: 13.5TB HBM3e
+  networking:
+    - NVLink_Switch
+  cooling: Liquid_Cooling
+  power_draw: 120kW
+  dimensions:
+    width: 600mm
+    depth: 1,068mm
+    height: 2,236mm
+  weight: 1,360kg
+

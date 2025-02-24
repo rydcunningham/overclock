@@ -1,0 +1,13 @@
+DGX_B200:
+  CPUs:
+    - Grace_CPU
+  GPUs:
+    - B200
+  memory: 2TB DDR5
+  storage: 60TB NVMe SSD
+  networking:
+    - NVLink_Switch
+  cooling: Liquid_Cooling
+  power_draw: 15kW
+  rack_units: 8U
+

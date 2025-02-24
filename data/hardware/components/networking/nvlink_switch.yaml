@@ -1,0 +1,4 @@
+NVLink_Switch:
+  bandwidth: 1.8TB/s
+  ports: 16
+

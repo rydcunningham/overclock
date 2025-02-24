@@ -1,0 +1,6 @@
+Grace_CPU:
+  architecture: "Arm Neoverse V2"
+  core_count: 72
+  memory: 480GB LPDDR5X
+  memory_bandwidth: 512GB/s
+

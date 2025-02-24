@@ -1,0 +1,7 @@
+HBM3e:
+  capacity_per_stack: 24GB
+  stacks_per_module: 8
+  total_capacity: 192GB
+  bandwidth_per_stack: 1TB/s
+  total_bandwidth: 8TB/s
+

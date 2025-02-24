@@ -1,0 +1,12 @@
+B100:
+  memory: 192GB HBM3e
+  memory_bandwidth: 8TB/s
+  power_usage: 1000W
+  compute_performance:
+    FP64: 14 PFLOPS
+    FP32: 28 PFLOPS
+    TF32: 2.5 PFLOPS
+    BF16_FP16: 3.5 PFLOPS
+    FP8: 7 PFLOPS
+  interconnect_bandwidth: 1.8TB/s NVLink
+

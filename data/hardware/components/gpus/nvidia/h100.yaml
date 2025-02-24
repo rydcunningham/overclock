@@ -1,0 +1,11 @@
+H100:
+  memory: 80GB HBM3
+  memory_bandwidth: 3.35TB/s
+  power_usage: 700W
+  compute_performance:
+    FP64: 34 TFLOPS
+    FP32: 67 TFLOPS
+    TF32: 989 TFLOPS
+    BF16_FP16: 1,979 TFLOPS
+    FP8: 3,958 TFLOPS
+  interconnect_bandwidth: 900GB/s NVLink
