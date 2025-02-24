@@ -52,8 +52,7 @@ export const useLayoutStore = create<LayoutState>((set, get) => ({
         id: `eda-${col}-${row}`,
         x: col,
         y: row + 3,
-        type: 'EDA',
-        // Set one rack as inactive for testing
+        type: 'EDA' as const,
         status: col === 5 && row === 6 ? 'inactive' : 'active',
         zoneId: `zone-${Math.floor(col / 6) + 1}`,
         powerDraw: col === 5 && row === 6 ? 0 : Math.random() * 5 + 5, // 5-10 kW

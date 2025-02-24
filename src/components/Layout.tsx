@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLayoutStore } from '../stores/useLayoutStore';
 
 interface SelectionState {
@@ -19,10 +19,6 @@ export function Layout() {
     racks, 
     connections, 
     zones,
-    selectedRack, 
-    selectedZone,
-    selectRack,
-    selectZone,
     initializeConnections 
   } = useLayoutStore();
 
@@ -419,8 +415,6 @@ export function Layout() {
 
   // Update the stats calculation helpers
   const GPUS_PER_RACK = 32;
-  const GPUS_PER_COLUMN = 384;
-  const GPUS_PER_ZONE = 2304;
 
   const getZoneStats = (zoneId: string) => {
     const zoneRacks = racks.filter(r => r.zoneId === zoneId);
