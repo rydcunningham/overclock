@@ -44,7 +44,7 @@ interface LayoutState {
 export const useLayoutStore = create<LayoutState>((set, get) => ({
   racks: [
     // MDA (Main Distribution Area)
-    { id: 'mda-1', x: 9, y: 1, type: 'MDA', status: 'active' },
+    { id: 'mda-1', x: 9, y: 1, type: 'MDA' as const, status: 'active' as const },
     
     // EDA (Equipment Distribution Area) - 3 zones of 6x12 racks
     ...Array(18).fill(0).flatMap((_, col) =>
@@ -53,7 +53,7 @@ export const useLayoutStore = create<LayoutState>((set, get) => ({
         x: col,
         y: row + 3,
         type: 'EDA' as const,
-        status: (col === 5 && row === 6 ? 'inactive' : 'active') as const,
+        status: (col === 5 && row === 6 ? 'inactive' : 'active') satisfies 'active' | 'inactive' | 'maintenance',
         zoneId: `zone-${Math.floor(col / 6) + 1}`,
         powerDraw: col === 5 && row === 6 ? 0 : Math.random() * 5 + 5, // 5-10 kW
         temperature: col === 5 && row === 6 ? 0 : Math.random() * 10 + 65, // 65-75°F
