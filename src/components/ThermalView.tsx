@@ -1,5 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ScatterChart, 
-         Scatter, ComposedChart, Tooltip, Legend } from 'recharts';
+         Scatter, Tooltip } from 'recharts';
 
 interface MetricCardProps {
   title: string;

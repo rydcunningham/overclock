@@ -1,5 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, 
-         ComposedChart, Bar, BoxPlot, CartesianGrid, Tooltip, Legend } from 'recharts';
+         ComposedChart, Bar, Tooltip } from 'recharts';
 
 interface MetricCardProps {
   title: string;
@@ -21,11 +21,12 @@ const utilizationData = Array.from({ length: 24 }, (_, i) => ({
   users: Math.floor(Math.random() * 1000 + 2000), // 2000-3000 users
 }));
 
-const latencyData = [
-  { percentile: 'P50', latency: 150 },
-  { percentile: 'P90', latency: 250 },
-  { percentile: 'P99', latency: 450 },
-];
+const temperatureData = Array.from({ length: 24 }, (_, i) => ({
+  time: `${i}:00`,
+  gpu: Math.random() * 10 + 65,
+  cpu: Math.random() * 10 + 60,
+  ambient: Math.random() * 5 + 68,
+}));
 
 const memoryData = Array.from({ length: 24 }, (_, i) => ({
   time: `${i}:00`,
