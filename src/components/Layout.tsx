@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useLayoutStore } from '../stores/useLayoutStore';
 
 interface SelectionState {
