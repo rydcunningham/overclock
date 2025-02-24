@@ -28,74 +28,105 @@ Overclock is a simulation tool that enables users to design, build, and manage v
 - **Scenario Planning**: Save and compare multiple datacenter configurations
 	- Presets include: Air-Cooled, Liquid Cooled, Liquid Immersion, CoLo, Decentralized (Akash Network)
 
-## Project Structure
+## Sample Project Structure
 ```
 overclock/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
-├── requirements.txt
-├── package.json
+├── requirements.txt         # Dependencies (SimPy, SciPy, NumPy, etc.)
+├── package.json             # Frontend dependencies (React, TypeScript)
 │
-├── data/
+├── data/                    # Static data (YAML configurations)
 │   ├── hardware/
-│   │   ├── gpus/
-│   │   │   ├── nvidia/
-│   │   │   │   ├── h100.yaml
-│   │   │   │   ├── a100.yaml
-│   │   │   │   └── l40.yaml
-│   │   │   └── amd/
-│   │   │       └── mi300x.yaml
-│   │   └── asics/
-│   │       └── groq/
-│   │           └── lpu.yaml
-│   ├── models/
-│   │   ├── llama/
-│   │   │   ├── 3-70b.yaml
-│   │   │   └── 3-33b.yaml
-│   │   └── gemma/
-│   │       ├── 7b.yaml
-│   │       └── 2b.yaml
-│   └── racks/
-│       ├── dell_r760xa.yaml
-│       └── supermicro_8049gp.yaml
+│   │   ├── components/
+│   │   │   ├── gpus/
+│   │   │   │   ├── nvidia/
+│   │   │   │   │   ├── h100.yaml
+│   │   │   │   │   ├── b100.yaml
+│   │   │   │   │   ├── b200.yaml
+│   │   │   │   ├── amd/
+│   │   │   │   │   └── mi300x.yaml
+│   │   │   ├── cpus/
+│   │   │   │   ├── grace_cpu.yaml
+│   │   │   │   └── xeon_8480c.yaml
+│   │   │   ├── memory/
+│   │   │   │   ├── hbm3e.yaml
+│   │   │   │   ├── ddr5.yaml
+│   │   │   │   └── lpddr5x.yaml
+│   │   │   ├── networking/
+│   │   │   │   ├── nvlink_switch.yaml
+│   │   │   │   ├── infiniband_400g.yaml
+│   │   │   │   └── ethernet_100g.yaml
+│   │   │   ├── cooling/
+│   │   │   │   ├── liquid_cooling.yaml
+│   │   │   │   └── air_cooling.yaml
+│   │   ├── systems/
+│   │   │   ├── dgx_h100.yaml
+│   │   │   ├── dgx_b200.yaml
+│   │   │   ├── gb200_nvl72.yaml
+│   │   ├── racks/
+│   │   │   ├── gb200_nvl72_rack.yaml
+│   │   │   ├── dell_r760xa.yaml
+│   │   │   └── supermicro_8049gp.yaml
+│   │
+│   ├── llms/                # Stores metadata on LLM models (tokenomics calculations)
+│   │   ├── meta/
+│   │   │   ├── llama3-70b.yaml
+│   │   │   ├── gemma-7b.yaml
+│   │   │   └── custom_model.yaml
+│   │   ├── performance/
+│   │   │   ├── throughput_estimates.yaml
+│   │   │   └── cost_per_token.yaml
+│   │   ├── datasets/
+│   │   │   ├── openai_dataset.yaml
+│   │   │   ├── huggingface_common.yaml
+│   │   │   └── synthetic_data.yaml
 │
-├── backend/
+├── backend/                 # Backend (Python - FastAPI, SciPy, SimPy)
 │   ├── __init__.py
-│   ├── main.py
+│   ├── main.py              # FastAPI main entry point
 │   ├── models/
 │   │   ├── __init__.py
-│   │   ├── component.py
+│   │   ├── component.py      # Hardware components modeling
 │   │   ├── cooling.py
 │   │   ├── power.py
 │   │   ├── rack.py
+│   │   ├── llm.py            # LLM metadata modeling
 │   │   └── datacenter.py      # Overall datacenter configuration
 │   │
 │   ├── optimization/
 │   │   ├── __init__.py
-│   │   ├── optimizer.py       # Portfolio optimization engine
+│   │   ├── optimizer.py       # Portfolio optimization engine (SciPy)
 │   │   ├── constraints.py     # Power, space, cooling constraints
-│   │   └── objectives.py      # Throughput maximization functions
+│   │   ├── objectives.py      # Throughput maximization, cost minimization
+│   │   ├── llm_optimizer.py   # LLM-based optimization (cost/token analysis)
+│   │   └── allocation.py      # Asset allocation strategies
 │   │
-│   ├── simulation/
+│   ├── simulation/            # Discrete event simulation (SimPy)
 │   │   ├── __init__.py
 │   │   ├── thermal.py
 │   │   ├── power.py
-│   │   └── costs.py
+│   │   ├── costs.py
+│   │   ├── tokenomics.py       # Token economics calculations for LLMs
+│   │   ├── workload_modeling.py # LLM workload simulation
+│   │   └── event_simulation.py # SimPy-based event simulation
 │   │
 │   ├── data_management/
 │   │   ├── __init__.py
 │   │   ├── loader.py          # YAML data loader
 │   │   ├── hardware_specs.py  # GPU/ASIC spec interfaces
 │   │   ├── model_specs.py     # LLM spec interfaces
-│   │   └── rack_specs.py      # Rack configuration interfaces
+│   │   ├── rack_specs.py      # Rack configuration interfaces
+│   │   └── tokenomics_specs.py # LLM tokenomics interfaces
 │   │
 │   └── utils/
 │       ├── __init__.py
 │       ├── constants.py
-│       └── metrics.py         # Performance calculation utilities
+│       ├── metrics.py         # Performance calculation utilities
+│       └── logging.py         # Structured logging
 │
-├── frontend/
+├── frontend/                 # Frontend (React, TypeScript)
 │   ├── src/
 │   │   ├── index.tsx
 │   │   ├── App.tsx
@@ -104,14 +135,19 @@ overclock/
 │   │   │   ├── Simulator.tsx
 │   │   │   ├── OptimizationPanel.tsx
 │   │   │   ├── HardwareSelector.tsx
+│   │   │   ├── LLMSelector.tsx
+│   │   │   ├── TokenomicsView.tsx
 │   │   │   └── ResultsView.tsx
 │   │   ├── hooks/
 │   │   │   ├── useSimulation.ts
-│   │   │   └── useOptimization.ts
+│   │   │   ├── useOptimization.ts
+│   │   │   ├── useLLMTokenomics.ts
+│   │   │   └── useDataLoader.ts
 │   │   ├── types/
 │   │   │   ├── hardware.ts
 │   │   │   ├── models.ts
-│   │   │   └── optimization.ts
+│   │   │   ├── optimization.ts
+│   │   │   └── tokenomics.ts
 │   │   └── utils/
 │   │       └── calculations.ts
 │   └── public/
@@ -121,7 +157,10 @@ overclock/
     ├── backend/
     │   ├── test_optimization.py
     │   ├── test_data_loading.py
-    │   └── test_simulation.py
+    │   ├── test_simulation.py
+    │   ├── test_tokenomics.py
+    │   ├── test_workload_modeling.py
+    │   └── test_event_simulation.py
     └── frontend/
         └── components.test.tsx
 ```

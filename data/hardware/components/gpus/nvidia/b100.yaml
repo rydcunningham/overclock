@@ -9,4 +9,3 @@ B100:
     BF16_FP16: 3.5 PFLOPS
     FP8: 7 PFLOPS
   interconnect_bandwidth: 1.8TB/s NVLink
-
