@@ -1,5 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ScatterChart, 
          Scatter, Tooltip } from 'recharts';
+import { useState } from 'react';
 
 interface MetricCardProps {
   title: string;
@@ -57,20 +58,49 @@ function Heatmap({ data }: { data: { x: number; y: number; temperature: number }
   
   const getColor = (temp: number) => {
     const ratio = (temp - minTemp) / (maxTemp - minTemp);
-    // Color gradient from blue (cool) to red (hot)
     const r = Math.round(255 * ratio);
     const b = Math.round(255 * (1 - ratio));
     return `rgb(${r}, 0, ${b})`;
   };
 
+  const [tooltip, setTooltip] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    content: string;
+  }>({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: ''
+  });
+
   return (
     <div className="relative w-full h-full">
       <canvas
-        id="heatmap"
+        id="thermal-heatmap"
         className="w-full h-full"
         style={{ imageRendering: 'pixelated' }}
         width={18}
         height={12}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = Math.floor((e.clientX - rect.left) / (rect.width / 18));
+          const y = Math.floor((e.clientY - rect.top) / (rect.height / 12));
+          
+          const point = data.find(p => p.x === x && p.y === y);
+          if (point) {
+            setTooltip({
+              visible: true,
+              x: e.clientX,
+              y: e.clientY,
+              content: `Temperature: ${point.temperature.toFixed(1)}°F`
+            });
+          }
+        }}
+        onMouseLeave={() => {
+          setTooltip(prev => ({ ...prev, visible: false }));
+        }}
         ref={canvas => {
           if (!canvas) return;
           const ctx = canvas.getContext('2d');
@@ -82,6 +112,18 @@ function Heatmap({ data }: { data: { x: number; y: number; temperature: number }
           });
         }}
       />
+      {tooltip.visible && (
+        <div 
+          className="absolute z-10 px-3 py-2 text-xs font-mono bg-cyber-dark border border-cyber-blue/20 rounded shadow-lg"
+          style={{ 
+            left: `${tooltip.x + 15}px`,
+            top: `${tooltip.y + 15}px`,
+            transform: 'translate(0, 0)'
+          }}
+        >
+          {tooltip.content}
+        </div>
+      )}
     </div>
   );
 }
@@ -163,7 +205,7 @@ export function ThermalView() {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 space-x-2">
         {/* Temperature Trends */}
         <div className="border border-cyber-blue/20 bg-cyber-dark/50 p-4 rounded">
           <h3 className="text-sm font-mono text-cyber-text/60 mb-4 uppercase">Temperature Trends</h3>

@@ -1,5 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, 
          ComposedChart, Bar, Tooltip } from 'recharts';
+import { useState } from 'react';
 
 interface MetricCardProps {
   title: string;
@@ -62,6 +63,100 @@ function MetricCard({ title, value, target, unit, trend }: MetricCardProps) {
   );
 }
 
+function Heatmap({ data }: { data: { x: number; y: number; power: number }[] }) {
+  const minPower = 0;
+  const maxPower = 10; // MW
+  
+  const getColor = (power: number) => {
+    const ratio = (power - minPower) / (maxPower - minPower);
+    const r = Math.round(255 * ratio);
+    const b = Math.round(255 * (1 - ratio));
+    return `rgb(${r}, 0, ${b})`;
+  };
+
+  const [tooltip, setTooltip] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    content: string;
+  }>({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: ''
+  });
+
+  return (
+    <div className="relative w-full h-full">
+      <canvas
+        id="power-heatmap"
+        className="w-full h-full"
+        style={{ imageRendering: 'pixelated' }}
+        width={18}
+        height={12}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = Math.floor((e.clientX - rect.left) / (rect.width / 18));
+          const y = Math.floor((e.clientY - rect.top) / (rect.height / 12));
+          
+          const point = data.find(p => p.x === x && p.y === y);
+          if (point) {
+            setTooltip({
+              visible: true,
+              x: e.clientX,
+              y: e.clientY,
+              content: `Power Draw: ${point.power.toFixed(2)} MW`
+            });
+          }
+        }}
+        onMouseLeave={() => {
+          setTooltip(prev => ({ ...prev, visible: false }));
+        }}
+        ref={canvas => {
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          data.forEach(point => {
+            ctx.fillStyle = getColor(point.power);
+            ctx.fillRect(point.x, point.y, 1, 1);
+          });
+        }}
+      />
+      {tooltip.visible && (
+        <div 
+          className="absolute z-10 px-3 py-2 text-xs font-mono bg-cyber-dark border border-cyber-blue/20 rounded shadow-lg"
+          style={{ 
+            left: `${tooltip.x + 15}px`,
+            top: `${tooltip.y + 15}px`,
+            transform: 'translate(0, 0)'
+          }}
+        >
+          {tooltip.content}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const generatePowerHeatmapData = () => {
+  const data = [];
+  for (let y = 0; y < 12; y++) {
+    for (let x = 0; x < 18; x++) {
+      // Generate power draw with spatial correlation
+      const basePower = 5; // 5 MW base
+      const variation = Math.sin(x/3) * Math.cos(y/2) * 2;
+      const noise = Math.random() * 1;
+      data.push({
+        x,
+        y,
+        power: basePower + variation + noise
+      });
+    }
+  }
+  return data;
+};
+
 export function PowerView() {
   return (
     <div className="p-6 bg-cyber-black min-h-screen">
@@ -102,6 +197,14 @@ export function PowerView() {
           unit="percent"
           trend={92}
         />
+      </div>
+
+      {/* Power Distribution Heatmap */}
+      <div className="border border-cyber-blue/20 bg-cyber-dark/50 p-4 rounded mb-4">
+        <h3 className="text-sm font-mono text-cyber-text/60 mb-4 uppercase">Power Distribution</h3>
+        <div className="h-64">
+          <Heatmap data={generatePowerHeatmapData()} />
+        </div>
       </div>
 
       {/* Charts Grid */}

@@ -21,13 +21,6 @@ const utilizationData = Array.from({ length: 24 }, (_, i) => ({
   users: Math.floor(Math.random() * 1000 + 2000), // 2000-3000 users
 }));
 
-const temperatureData = Array.from({ length: 24 }, (_, i) => ({
-  time: `${i}:00`,
-  gpu: Math.random() * 10 + 65,
-  cpu: Math.random() * 10 + 60,
-  ambient: Math.random() * 5 + 68,
-}));
-
 const memoryData = Array.from({ length: 24 }, (_, i) => ({
   time: `${i}:00`,
   vram: Math.random() * 20 + 60, // 60-80GB
@@ -36,7 +29,7 @@ const memoryData = Array.from({ length: 24 }, (_, i) => ({
 
 const costData = Array.from({ length: 24 }, (_, i) => ({
   time: `${i}:00`,
-  cost: Math.random() * 0.2 + 0.8, // $0.8-1.0 per 1M tokens
+  totalCost: Math.random() * 0.2 + 0.8, // $0.8-1.0 per 1M tokens
   revenue: Math.random() * 0.4 + 1.2, // $1.2-1.6 per 1M tokens
 }));
 
@@ -235,6 +228,13 @@ export function TokensView() {
                 tick={{ fontSize: 10 }}
               />
               <YAxis 
+                yAxisId="left"
+                stroke="#e0e0e0" 
+                tick={{ fontSize: 10 }}
+              />
+              <YAxis 
+                yAxisId="right"
+                orientation="right"
                 stroke="#e0e0e0" 
                 tick={{ fontSize: 10 }}
               />
@@ -244,8 +244,14 @@ export function TokensView() {
                   border: '1px solid rgba(0, 240, 255, 0.2)' 
                 }} 
               />
-              <Bar dataKey="cost" fill="#00f0ff" fillOpacity={0.2} />
+              <Bar 
+                yAxisId="left"
+                dataKey="totalCost" 
+                fill="#00f0ff" 
+                fillOpacity={0.2} 
+              />
               <Line
+                yAxisId="right"
                 type="linear"
                 dataKey="revenue"
                 stroke="#00ff9f"
