@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { Layout } from './components/Layout';
+import { TokensView } from './components/TokensView';
+import { PowerView } from './components/PowerView';
+import { ThermalView } from './components/ThermalView';
 
 export function App() {
   return (
@@ -13,10 +16,9 @@ export function App() {
             <Route path="/" element={<Navigate to="/dash" replace />} />
             <Route path="/dash" element={<Dashboard />} />
             <Route path="/layout" element={<Layout />} />
-            {/* Add placeholder components for other routes */}
-            <Route path="/tokens" element={<div className="p-6">Tokens View</div>} />
-            <Route path="/power" element={<div className="p-6">Power View</div>} />
-            <Route path="/thermal" element={<div className="p-6">Thermal View</div>} />
+            <Route path="/tokens" element={<TokensView />} />
+            <Route path="/power" element={<PowerView />} />
+            <Route path="/thermal" element={<ThermalView />} />
           </Routes>
         </main>
       </div>
